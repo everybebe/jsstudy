@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script>
+
+//자동 형변환 문자열은 ""만 false, 나머진 전부 true
+//숫자는 0만 false고 나머진 전부 true;
+//object(객체는) 비어있든 안 비어있든 무조건 true
+
+var aaa = !0; //true의 변칙 표현 글자수를 줄이기 위함
+if({}) {
+    alert("ㅋㅋㅋ");
+}
+
+
+
+const test = function(pArg) {
+    pArg();
+    //alert(typeof(pArg));
+    return "kgb";
+}
+
+//test(272);
+//test("e7e");
+//test([1,2,3]);
+//test({name:"정수"});
+//test(function(){}); // 요 케이스가 아주 많이 사용됨! (callback이라 부름 -> 비동기 덕분에 더 인기)
+alert(test(function(){
+    alert("안농하삼");
+}));
+
+
+//정식 선언법
+
+//함수 선언 표현식
+//표현식 연산을 통해서 한개의 결과로 도출
+//const test = function(){ return "메롱"};
+//alert(test());   //?? hoisting(호이스팅 -> 선언부만 맨위로 올리는 거 -> 성능향상) 
+
+/* function test(){
+    return "흥치뿡";
+}    
+ */
+</script>

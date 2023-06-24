@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+    <body>
+      <h1 id="dajim"> 난 최고의 프로그래머당! </h1>
+    </body>
+
+    <script>
+        var color="blue";
+        documnet.querySelector("#dajim").style["color"]="blue";
+
+ //JSON (JavaScript Object Notition) 거의 데이터형식 표준포맷
+/*
+ let name="merong"
+ var jungsu = {      //new Object()
+    name:"정수",     //속성명은 변수처리 안됨! 왱? 문자열 처리되기 때문에
+    role:"개그맨",   //
+    songs:["뽀뽀뽀", "뽀로로"]
+
+
+ };
+
+    console.log(jungsu);
+ var jungsu = {      //new Object()
+    name:"정수",     //속성명은 변수처리 안됨! 왱? 문자열 처리되기 때문에
+    role:"개그맨",   //
+    songs:["뽀뽀뽀", "뽀로로"]
+
+
+ };
+
+    console.log(jungsu);
+
+*/
+    
+//배열식 접근법 -> 무지막지 중요 -> 무조건 연습 -> 손가락이 외울 정도롱 -> 연봉 많이 올라감!
+ var jungsu = {      
+    ["name"] :"정수",     
+    ["role"] :"개그맨",   
+    ["songs"]:["뽀뽀뽀", "뽀로로"]
+ };
+
+    console.log(jungsu);
+
+//배열식 접근법 -> 무지막지 중요 -> 무조건 연습 -> 손가락이 외울 정도롱 -> 연봉 많이 올라감!
+ var jungsu = {      
+    [name] :"정수2",     
+    ["1"] :"개그맨2",   
+    ["2"]:["뽀뽀뽀2", "뽀로로2"]
+ };
+    //jungsu.3 = "ppp";  요건 변수 선언 규칙 위반(숫자를 변수명이 시작될 순 없당)
+
+    console.log(jungsu);
+    console.log(jungsu[1]);
+    console.log(jungsu[2]);
+
+
+</script>
+

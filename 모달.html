@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    #myModal {
+        position: fixed;  /* 위치 고정 */
+        left: 0px;
+        top: 0px;
+        width: 100vw;   /* 사이즈 고정 */
+        height: 100vh;
+        background-color: rgba(12,12,12,0.5);
+        z-index: 100; /* 클수록 앞으로 나옴 */
+        display: none; /* 처음엔 안 보여야 함 */
+
+    }
+
+    #content {
+        width: 60%;
+        height: 70%;
+        margin: 20px auto; /* 수평 중앙정렬 */
+        background-color: aquamarine;
+    }
+
+    #menu {
+        text-align: right; /* 오른쪽 정렬 */
+        font-size: 2em; /* 기본 2배 */
+    }
+
+    button {
+        font-size: 2em;
+    }
+</style>
+</head>
+<body>
+    <!-- 모달 div는 별도로 밖으로 따로 빼놓는게 좋음-->
+<div id="myModal">
+    <div id="content">
+        <div id="menu"><button onclick="fmodalClose()">X</button></div>
+        <div><h1>난 최고의 프로그래머당!</h1></div>
+    </div>
+</div>
+<div id="wrapper">
+    <button onclick="fmodalOpen()">날 눌러줭</button>
+    <!-- 부트스트랩 모달 X 개발자라면 맹글어 써야 함 -->
+    <!-- position, z-index, display, overflow, transform -->
+</div>
+    <script>
+       const mModal = document.querySelector("#myModal");
+       function fmodalOpen(){
+            mModal.style.display = "block"; //눈에 보이겡!
+       } 
+       function fmodalClose(){
+            mModal.style.display = "none"; //눈에 안 보이겡!
+       } 
+    </script>
+</body>
+</html>

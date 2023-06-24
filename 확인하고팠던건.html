@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <tbody id="sujin">
+        <tr>
+            <td>이름</td>
+            <td onclick="ftest()">나이</td>
+            <td>별명</td>
+        </tr>
+        <tr>
+            <td>김민정</td>
+            <td>20</td>
+            <td>정민</td>
+        </tr>
+        <tr>
+            <td>박승우</td>
+            <td>40</td>
+            <td>우승</td>
+        </tr>
+        <tr>
+            <td>정은지</td>
+            <td>30</td>
+            <td>지은</td>
+        </tr>
+    </tbody>
+    </table>
+    <script>
+        //유사배열을 배열로 변환!
+        function toArray(pArg){
+            var arr = [];
+            for(let i = 0; i < pArg.length; i++){
+                arr.push(pArg[i]);
+            }
+            return arr;
+        } 
+
+        //Array.from(유사배열을 자스배열로 바꾸어줌, 원리는 위 toArray함수)
+        let trs = Array.from(document.querySelectorAll("tr"));
+        const ttbody = document.querySelector("tbody");
+        
+        ttbody.appendChild(trs[1]); //눈으로 확인
+        //let arr2 = toArray(trs);
+        //console.log(arr2.sort());
+
+        function ftest(){
+            trs.sort(function(a,b){
+                return a.children[1].innerHTML - b.children[1].innerHTML;
+            });
+            
+            for(let i=0; i<trs.length; i++){
+                ttbody.appendChild(trs[i]);    //tbody에 넣깅(?)
+            }
+        }
+    </script>
+</body>
+</html>

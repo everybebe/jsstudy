@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+    <div id="disp"></div>
+</body>
+<script>
+    const blackPink = [
+        {name:"로제", age:26, song:"흥"},
+        {name:"제니", age:27, song:"치"},
+        {name:"리사", age:26, song:"뿡"},
+        {name:"지수", age:28, song:"크"},
+        {name:"지혜", age:25, song:"헉"},
+    ]
+
+    blackPink.sort(function(a,b){
+        return a.age - b.age;
+    });
+    console.log("체킁: " , blackPink);
+    
+    const myDisp = document.querySelector("#disp");
+
+    function MyArray(){
+        this.length = 0;
+    }
+    
+    const position = {
+
+        "level1" : "회장님",
+        "level2" : "사장님",
+        "level3" : "이장님",
+        "level4" : "반장님"
+    }
+
+    const jumins =  [
+        {name : "신국현", age : 100, pos : "level1"},
+        {name : "전지혜", age : 50, pos : "level4"},
+        {name : "리수진", age : 25, pos : "level3"},
+        {name : "김지원", age : 20, pos : "level4"},
+        {name : "변정민", age : 30, pos : "level2"}
+    ]
+
+    //자주 사용되는 문자열로 table 맹글기
+    //배열식 접근법만큼은 잊지 말장 ! (보통은 일반적. 접근법이 성능이 더 좋아서 많이 사용!)
+    var tblStr = "<table border=2>";
+        tblStr += 
+        `<tr>
+            <th><button type="button" id="no">순번</th>
+            <th><button type="button" id="name">이름</th>
+            <th><button type="button" id="age">나이</th>
+            <th><button type="button" id="position">직책</th>
+        </tr>`;
+
+    for(let i = 0; i < jumins.length; i++) {
+        tblStr += "<tr>";
+        tblStr += `<td>${i+1}</td>`;   
+        tblStr += `<td>${jumins[i].name}</td>`;   
+        tblStr += `<td>${jumins[i].age}</td>`;   
+        tblStr += `<td>${position[jumins[i].pos]}</td>`; //요기가 문제! 요거이 뽀인또 ! 잊지말장!
+        tblStr += "</th>"; 
+    }   
+    tblStr += "</table>";
+    myDisp.innerHTML = tblStr;
+
+    let testMerong = new MyArray();
+    testMerong.push(jumins.name);
+    testMerong.sort(function(a,b){
+        return a - b;
+    })
+
+    MyArray.prototype.sort = function(pCallback){
+    for(j=0;j<testArr.length;j++) {
+        for(let i = j+1; i < testArr.length; i++){
+        if(testArr[j] > testArr[i]){    // 조건 만족이 안되어서
+                let temp = this[j];
+                this[j] = this[i];
+                this[i] = temp;
+            }
+   // alert(testArr); // 돌아가는 걸 눈으로 보기(개발자는 이런게 중요)
+                    // 디버깅을 상상으로 하는 건 아주 안좋은 습관
+       }
+    }
+}
+</script>

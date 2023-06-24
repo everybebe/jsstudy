@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+    <meta charset='utf-8'>
+    <body>
+        
+        <div class="merong fbi">흥</div>
+        <div class="merong">치</div>
+        <div class="merong fbi">뿌</div>
+        <div class="merong">웅</div>
+        <div class="merong">앙</div>
+    </body>
+<script>
+
+    /*
+    var ggg = "흥치뿡"; //실제 전역변수 선언은 window 객체에 속성을 추가 하는 것과 같음
+    alert(window.ggg);
+    */
+/* 
+    window.kgb = function() {
+        alert("나 진현성")
+    };
+    kgb(); //함수를 선언하는 것은 window객체의 메소드를 추가하는 것과 같음 !
+
+     */
+
+    //즉각 실행 함숭숭!!!!!
+    //()나! 이외를 쓰면 쪼메 나쁜 사람, 정신 연령 중학생!
+    //var $; window.$
+    (function(arg){
+        var $=function(pSel){
+            return new MyDom(pSel);
+        }
+
+        //function을 class의 의미로 쓰깅
+        var MyDom = function(pSel){
+            var elems = document.querySelectorAll(pSel);
+            //jquery는 선택된 DOM 요소를 자신의 속성으로 옮겨 닮음
+            //왜? 자신의 메소드에서 편하게 접근하기 위해서
+
+        this.length = elems.length; //자신의 속성 length 추가
+        for(let i = 0; i <elems.length; i++){ //옮겨담기
+            this[i] = elems[i];
+        }
+            return this; //class의 의미로 쓰면 요거이 생략되어 있음, 명시적 표현
+        }
+
+        MyDom.prototype.method = function(){};
+        window.$=$; //전역변수 $와 지역변수 $가 같은 곳을 가리킴
+        $.fn = MyDom.prototype; //$.fn과 MyDom.prototype이 같은 곳을 가리킴
+    })();
+
+    //jQuery는 서서히 떠나가지만 jQuery가 남긴 것은 계속 활용되고 있음!
+    //jQuery 코아를 간략버전으로 맹글어서 이해를 해 봅시당
+
+   
+    //var divs = new myDom(".merong");
+    var divs = $(".fbi");
+    console.log("체킁:",divs[0]);
+</script>

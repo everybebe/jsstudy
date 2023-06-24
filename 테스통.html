@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // callback 쪼금 연습하는 걸로 (적어도 3일 정도.,.)
+    /* 
+    var SinHG = {}; //네임스페이스용 빈 객체
+    SinHG.print = function(){
+        alert("나 현근이얌");
+    }
+ */
+    // 자바의 ArrayList를 자스로 맹글어 보아용, 배열과 거의 같아용
+    function ArrayList(){
+        this.length = 0;
+        return this;
+    }    
+
+    //add
+    ArrayList.prototype.add = function(pElem){
+        this[this.length] = pElem;  
+            this.length++;  //초기값이 없으면 NaN (Not a Number)
+            return this;        // 자기자신 메소드 채이닝이된다.
+    }
+
+    //get
+    ArrayList.prototype.get = function(pIndex){
+            return this[pIndex];
+    }
+
+    //set
+    ArrayList.prototype.set = function(pIndex, pValue){
+            return this[pIndex] = pValue;
+    }
+
+    //remove
+    ArrayList.prototype.remove = function(pIndex){
+        for(let i= pIndex; i < (this.length-1); i++){
+            this[i] = this[i+1]; //pIndex부터 뒤에 값 앞으로 땡기기
+        }
+            delete this[this.length -1]; //마지막꺼 지우깅
+            this.length--;
+            return this;
+    }
+
+    //clear
+    ArrayList.prototype.clear = function(){
+        for(let i = 0; i < this.length; i++) {
+            delete this[i];
+        }
+        this.length = 0; //다시 초기화
+        return this;
+    }
+
+    //size
+    ArrayList.prototype.size = function(){
+        return this.length;
+    }
+
+    var testArrayList = new ArrayList();
+    testArrayList.add("로제").add("제니").add("리사").add("지수");
+    console.log("체킁1: ", testArrayList);
+
+    console.log("체킁2: ", testArrayList.get(2));
+
+
+    testArrayList.set(1, "박윤수");
+    console.log("체킁3: ", testArrayList);
+    
+    testArrayList.remove(3);
+    console.log("체킁4: ", testArrayList);
+
+    console.log("체킁5 : ", testArrayList.size());
+    
+    testArrayList.clear();
+    console.log("체킁6 : ", testArrayList);
+
+</script>

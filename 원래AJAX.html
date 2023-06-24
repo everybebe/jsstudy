@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<body>
+    <button onclick="callAjax()">에이젝스</button>
+
+</body>
+<script>
+    //DRY -> DO not Repeat Yourself (반복하지 마삼)
+    //KISS -> Keep It Simple, Stupid (심플하게햄 바보얌!)
+ 
+    const myDisp = document.querySelector("#disp");
+
+    function callAjax(){
+        $.ajax({
+            method:"get",
+            url:"/jsstudy/data.csv", 
+            dataType:"json",
+            success:function(resp){
+                console.log("넘겨받은값은2: ", resp);
+                let tblStr = "<table border=1>";
+                tblStr += "<tr><th>이름</th><th>나이</th><th>별명</th></tr>";
+                //확장자 .jsp(내부적으로 .java파일로 바뀌는 동작) 안에서는 \$식으로 써야 함!
+                for(let i=0; i<resp.length;i++){
+                    tblStr += "<tr>";
+                    tblStr += `<td>${resp[i].name}</td>`;
+                    tblStr += `<td>${resp[i].age}</td>`;
+                    tblStr += `<td>${resp[i].alias}</td>`;
+                    tblStr += "</tr>";
+
+                }
+                tblStr += "</table>";
+                myDisp.innerHTML = tblStr;
+
+               
+            }
+        })
+    }
+
+    var $ = {};
+
+    //매개변수를 개수에 상관없이 편하게 제어하려면 {}을 이용하여 json으로 처리하는 법
+    $.ajax = function(pOption){
+        //비동기는 혼자 못함. 움직이는 일꾼이 두명은 되어야함. 서버에 갔다올 사람, 
+        var xhr = new XMLHttpRequest(); //심부름꾼이 전역변수임 아주나쁨?
+        //효율성 때문에 비동기를 권장
+        //하지만 동기도 필요할 때가 있음 (보통 공유 자원이라 부르는 것을 사용할 때)
+        xhr.open(pOption.method,pOption.url,true); //심부름꾼이 갔다올 곳 지정
+        
+        xhr.onreadystatechange = function(){ //심부름꾼 모니터링
+            //우리는 중간 상태는 관심이 없음, 오직 끝난 것만 관심!
+            if(xhr.readyState == 4 && xhr.status == 200){
+            //    console.log(xhr.responseText);
+                if(pOption.dataType=="json"){
+                    pOption.success(xhr.responseText);
+                }else{
+                    pOption.success(xhr.responseText);
+                }
+                //alert("먼저 뜨면 동기");
+            }
+        }
+        xhr.send(); //시킨대로 하시옹!
+        //alert("먼저 뜨면 비동기")
+    }
+    
+</script>
