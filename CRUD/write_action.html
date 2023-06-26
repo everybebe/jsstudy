@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="./jsp.js"></script>
+<script>
+    let title = request.getParameter("n_title");
+    let writer = request.getParameter("n_writer");
+    let cont = request.getParameter("n_cont");
+    let skills = request.getParameterValues("n_skill");
+
+    // 1개 세트롱 (관계형DB로 보자면 테이블의 1개 row로)
+    let gul = {
+        num: 0,      // primary key로 쓸 속성
+        title:title,
+        writer:writer,
+        cont:cont,
+        skills:skills,
+        date:new Date().toLocaleDateString()
+    }
+
+
+    //localStorage에 저장
+    const tblName = "uglyGesi";
+    let dataArr=[]; //그냥 선언, 빈 배열(값이 없는 경우에 쓸 예정)
+    if(localStorage.getItem(tblName)){
+        dataArr = JSON.parse(localStorage.getItem(tblName));
+        gul.num = dataArr[dataArr.length-1].num+1;
+    }
+    dataArr.push(gul); //배열에 추가
+
+    localStorage.setItem(tblName, JSON.stringify(dataArr));
+
+    alert("글이 잘 입력되었어용용!!!");
+
+    //location.href = list.html 
+    location.replace("list.html");  //캐쉬 안씀
+
+ 
+    
+</script>

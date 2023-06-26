@@ -4,53 +4,49 @@
     <button id="jungsu">눌러방</button>
 </body>
 <script>
-    //call, apply 둘중 1개와 bind를 꼬옥 기억해야 함!
-    
+// call,apply 둘중 1개와 bind를 꼬옥 기억해야 함!
 const mJungsu = document.querySelector("#jungsu");
-
 var josh = { 
-    name :"조성희",
-    exp : "진지" 
+    name:"조성희",
+    exp :"진지"
 }
-
 
 function fCheck(pName){
     alert(pName + "님 나 눌렀닝?" + this.name + this.exp);
 }
 
-//요따구로 어림없는 경우에 사용하면 좋음, 특히 유지보수에서 이런게
-//필요한 상황을 만나면 미쳐버림. bind 모르면 소스 전체 형식을 고쳐야 함!
-//bind 사용법 자체는 call과 똑같음. 동작이 다름
-//bind는 내부적으로 새로운 함수를 만들어서 해당함수의 포인터(함수이름)만 리턴해줌
-mJungsu.addEventListener("click", fCheck.bind(josh,"이성일"));
+// 요따구로 어림없는 경우에 사용하면 좋음, 특히 유지보수에서 이런게
+// 필요한 상황을 만나면 미쳐버림. bind 모르면 소스 전체 형식을 고쳐야 함!
+// bind 사용법 자체는 call과 똑같음. 동작이 다름
+// bind는 내부적으로 새로운 함수를 만들어서 해당함수의 포인터(함수이름)만 리턴해줌
+mJungsu.addEventListener("click",fCheck.bind(josh,"이성일"));
 
-//this(이것)
-//자스를 함수기반 언어인 듯 보이지만, 실제는 객체 지향 언어이당
-//this를 직접 제어할 수 있게, call, apply, bind를 만들어 줌!
 
-/* 
-function fthis(pArg, pArg2){ //함수 선언 -> window 객체의 메소드 선언
-    console.log("this", this, "매개변수", pArg, pArg2); //? window?
-    //this가 맥락(context)에 따라 달라짐!
-    //js개발자들이 난리 부르스를 한번 추었어용 못 쓰겠당!
+// this(이것)
+// 자스를 함수기반 언어인 듯 보이지만, 실제는 객체 지향 언어이당!
+// this를 직접 제어할 수 있게 , call,apply,bind를 만들어 줌!
 
+/*
+function fthis(pArg,pArg2){ // 함수 선언  -> window 객체의 메소드 선언
+    console.log("this",this,"매개변수",pArg,pArg2); //? window ?
+    // this가 맥락(context)에 따라 달라짐!
+    // js개발자들이 난리 부르스를 한번 추었어용 못 쓰겠당!
 }
 
-var josh = { 
-    name :"조성희",
-    exp : "진지" 
-}
 
-fthis.call(document, "전지혜로와용", "신국현");
-fthis.apply(josh, ["변정민 변덕재잉" , "김지완"]); // call하고 똑같은데, 매개변수들을 무조건 배열에 
+
+fthis.call(document,"전지혜로와용","신국현");
+fthis.apply(josh,["변정민 변덕재잉","김지완"]);    // call하고 똑같은데, 매개변수들을 무조건 배열에 담아서 1개로 보내야 함
+
 //josh.merong();
 
-josh.merong = fthis; //참조 
- */
+josh.merong = fthis;   // 참조 
+*/
+/*
+window.fthis();
 
-/* window.fthis();
-
-var ggg = "메롱"; //변수선언
+var ggg = "메롱"; // 변수선언 -> window 객체의 속성 선언
 alert(window.ggg);
- */
+*/
+
 </script>

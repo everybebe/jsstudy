@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// localStorage index 4번의 huk 속성값 배열안의 치만 치치치로 고치고(수정)
+// key값은  "stars"임
+
+// 먼저 localStorage 읽어오깅
+let dataArr = JSON.parse(localStorage.getItem("stars")); // parse하면 여기선 배열!
+
+// 메모리상에서 데이타를 변경
+dataArr[4].huk[1] = "치치치"; // 현재값 치를 치치치로 덮어씀! 
+
+// 하드디스크에 다시 써줘야 함(실제 저장 => 여기서 덮어쓰깅, update에 해당)
+localStorage.setItem("stars", JSON.stringify(dataArr));
+
+</script>

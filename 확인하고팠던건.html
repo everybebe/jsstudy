@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
     <table border="1">
         <tbody id="sujin">
         <tr>
-            <td>이름</td>
-            <td onclick="ftest()">나이</td>
-            <td>별명</td>
+            <th>이름</th>
+            <th onclick="ftest()">나이</th>
+            <th>별명</th>
         </tr>
         <tr>
             <td>김민정</td>
@@ -28,35 +27,43 @@
             <td>30</td>
             <td>지은</td>
         </tr>
-    </tbody>
+        </tbody>
     </table>
-    <script>
-        //유사배열을 배열로 변환!
-        function toArray(pArg){
-            var arr = [];
-            for(let i = 0; i < pArg.length; i++){
-                arr.push(pArg[i]);
-            }
-            return arr;
-        } 
-
-        //Array.from(유사배열을 자스배열로 바꾸어줌, 원리는 위 toArray함수)
-        let trs = Array.from(document.querySelectorAll("tr"));
-        const ttbody = document.querySelector("tbody");
-        
-        ttbody.appendChild(trs[1]); //눈으로 확인
-        //let arr2 = toArray(trs);
-        //console.log(arr2.sort());
-
-        function ftest(){
-            trs.sort(function(a,b){
-                return a.children[1].innerHTML - b.children[1].innerHTML;
-            });
-            
-            for(let i=0; i<trs.length; i++){
-                ttbody.appendChild(trs[i]);    //tbody에 넣깅(?)
-            }
+<script>
+    //유사배열을 배열로 변환!
+    
+    function toArray(pArg){
+        var arr = [];
+        for(let i=1; i<pArg.length;i++){
+            arr.push(pArg[i]);
         }
-    </script>
+        return arr;
+    }
+    
+
+    // Array.from ( 유사배열을 자스배열로 바꾸어줌, 원리는 위 toArray함수)
+    //const trs = Array.from(document.querySelectorAll("tr"));
+    let trs = toArray(document.querySelectorAll("tr"));
+    const ttbody = document.querySelector("tbody");
+  
+    // 이미 존재하는 객체를 appendChild하면 이동해 버림!
+    // 잘 안쓰게 되면 동적 바인딩을 너무 많이 써야 해서, 이벤트 처리가 힘들어짐!
+    ttbody.appendChild(trs[1]); // 누느로 확인!
+
+
+   // let arr2 = toArray(trs);
+   // console.log(arr2.sort());
+
+    function ftest(){
+        alert("pppp");
+        trs.sort(function(a,b){
+            return a.children[1].innerHTML - b.children[1].innerHTML; 
+        });
+
+        for(let i=0; i<trs.length; i++){
+            ttbody.appendChild(trs[i]);   // tbody에 넣깅(??)
+        }
+    }
+</script>
 </body>
 </html>

@@ -1,104 +1,127 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <script>
-
-    //배열클래스
+    // 배열 클래스
     function MyArray(){
         this.length = 0;
     }
 
-    //push메소드
+    //push 메소드
     MyArray.prototype.push = function(pElem){
         this[this.length] = pElem;
         this.length++;
-        return this; //메소드 체이닝
+        return this;    // 메소드 체인닝
     }
 
-     
-    //sort 메소드
-    MyArray.prototype.sort = function(pCallback){
-    for(j=0;j<testArr.length;j++) {
-        for(let i = j+1; i < testArr.length; i++){
-        if(testArr[j] > testArr[i]){    // 조건 만족이 안되어서
-                let temp = this[j];
-                this[j] = this[i];
-                this[i] = temp;
+    //sort메소드
+    MyArray.prototype.sort = function (pCallback) {
+        for (j = 0; j < this.length; j++) {
+            for (let i = j + 1; i < this.length; i++) {
+                if (pCallback(this[j],this[i]) > 0) {  // 조건 만족이 안되어서
+                    let temp = this[j];
+                    this[j] = this[i];
+                    this[i] = temp;
+                }
             }
-   // alert(testArr); // 돌아가는 걸 눈으로 보기(개발자는 이런게 중요)
-                    // 디버깅을 상상으로 하는 건 아주 안좋은 습관
-       }
+        }
     }
-}
 
     let testMerong = new MyArray();
     testMerong.push(2).push(6).push(3).push(1).push(4);
     testMerong.sort(function(a,b){
         return a - b;
-    })
-
-    console.log("체킁:", testMerong);
-    //배열 객체에 sort메소드가 제공되고 있음!
-    const testArr = ["오대환", "김동혁", "김민옥", "진현성", "정재균"];
-
-    alert("오대혼 "  + 0);
-    alert("오대혼 "  - 0);
-    alert("오대혼 " * 0);
-    alert("오대혼 " % 2);
-    alert("체킁: " + testArr.sort()); //디폴트로 오름차순
-
-    alert("오대환" > "정재균"); //크기 비교는 내부적으로 아스키코드 , 유니코드값으로 비교됨
-
-    alert("체킁2:" + testArr.sort(function(a,b){
+    });
+    
+    console.log("체킁:",testMerong);
+    testMerong.sort(function(a,b){
         return b - a;
-    }))
+    });
+    console.log("체킁:",testMerong);
 
-    //스위치(switch)
-/* 
-    // var a = 337;
-    // var b = 272;
-    // var temp = a;
-    // a = b;
-    // b = temp;
 
-    // alert( a + " " + b);
- */
 
-/* let testArr = [3,6,1,2,9,7,3,2];
 
-for(let i = 1; i<testArr.length; i++) {
-    if(testArr[0] < testArr[i]){
-        let temp = testArr[0];
-        testArr[0] = testArr[i];
-        testArr[i] = temp;
-    }
-    alert(testArr); //돌아가는 걸 누느로 보깅(개발자는 이런게 중요!)
-    //디버깅을 상상으로 하는건 아주 안좋음 눈으로 꼭 보깅
-}
-alert("첫번째 자리에 가장 큰 숫자: " + testArr); //첫번째 자리에 가장 큰 숫자가 와 있음!
- */
-//sort를 알려면 정렬 -> 최대값, 최소값
-/* let testArr = [3,6,1,2,9,7,3,2];
-//버블정렬(정렬중에 젤 쉬운 정렬!)
-for (j = 0; j<testArr.length; j++) {
-    for(let i = j+1; i<testArr.length; i++) {
-        if(testArr[j] < testArr[i]){ //조건 만족이 안되어서
-            let temp = testArr[j];
-            testArr[j] = testArr[i];
-            testArr[i] = temp;
+
+
+
+
+    // 배열 객체에 sort 메소드가 제공되고 있음!
+    //const testArr = ["오대환","김동혁","김민옥","진현성","정재균"];
+
+    /*
+    alert("오대환" + 0);
+    alert("오대환" - 0);
+    alert("김동혁" * 0);
+    alert("진현성" % 2);
+    
+
+    alert("흥".charCodeAt(0));
+    alert("A".charCodeAt(0));
+    alert("a".charCodeAt(0));
+    alert("A" > "a");
+
+    alert("오대환" < "정재균"); // 크기비교는 내부적으로 아스키코드,유니코드값으로 비교됨
+    */
+   /*
+    alert("체킁:" + testArr.sort()); // 디폴트로 오름차순
+    alert("체킁2:" + testArr.sort(function(a,b){
+        //return b - a;
+        if(b > a) return 1;
+        if(b == a) return 0;
+        if(b < a) return -1;
+    }));
+    */
+    
+
+    /*스위치(switch)
+    var a = 337;
+    var b = 272;
+
+    var temp = a;
+    a = b;
+    b = temp;
+    alert( a + "  " + b);
+    */
+
+    // sort를 알려면 정렬 -> 최대값, 최소값
+    /*
+    let testArr = [3,6,1,2,9,7,3,2];
+    // 버블정렬 (정렬중에 젤 쉬운 정렬!)
+    for(j=0; j<testArr.length; j++){
+        for(let i=j+1; i<testArr.length; i++){
+            if(testArr[j] > testArr[i]){  // 조건 만족이 안되어서
+                let temp = testArr[j];
+                testArr[j] = testArr[i];
+                testArr[i] = temp;
+            }
         }
     }
-}
-
-
-for(let i = 2; i<testArr.length; i++) {
-    if(testArr[1] < testArr[i]){ //조건 만족이 안되어서
-        let temp = testArr[1];
-        testArr[1] = testArr[1];
-        testArr[i] = temp;
+    alert("잘되낭?체킁?:" +testArr);
+    */
+    /*
+    //let max= testArr[0];  // 첫번쨍 갑시 제일 크다고 가정!
+    for(let i=1; i<testArr.length; i++){
+        if(testArr[0] < testArr[i]){  // 조건 만족이 안되어서
+            let temp = testArr[0];
+            testArr[0] = testArr[i];
+            testArr[i] = temp;
+        }
+       // alert(testArr);   // 돌아가는 걸 누느로 보깅(개발자는 이런게 쭝요!);
+                              // 디버깅을 상상으로 하는 건 아주 안좋음 누느로 꼬옥 보깅
     }
-    alert(testArr); //돌아가는 걸 누느로 보깅(개발자는 이런게 중요!)
-                    //디버깅을 상상으로 하는건 아주 안좋음 눈으로 꼭 보깅
-}
-alert("첫번째 자리에 가장 큰 숫자: " + testArr); //첫번째 자리에 가장 큰 숫자가 와 있음!
- */
+
+    for(let i=2; i<testArr.length; i++){
+        if(testArr[1] < testArr[i]){  // 조건 만족이 안되어서
+            let temp = testArr[1];
+            testArr[1] = testArr[i];
+            testArr[i] = temp;
+        }
+       // alert(testArr);   // 돌아가는 걸 누느로 보깅(개발자는 이런게 쭝요!);
+                              // 디버깅을 상상으로 하는 건 아주 안좋음 누느로 꼬옥 보깅
+    }
+    */
+
+    //alert("두번째 자리까정 정렬:" +testArr);  // 첫번째 자리에 가장 큰 숫자가 와 있음!
+
+
 </script>
