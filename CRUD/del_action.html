@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="./jsp.js"></script>
+<script>
+//삭제는 num값 하고, 배열의 splice메소만 있으면 금방할 수 있음
+    let num = request.getParameter("n_num");
+
+    const tblName = "uglyGesi";
+    let dataArr = JSON.parse(localStorage.getItem(tblName));
+
+    for (let i = 0; i < dataArr.length; i++){
+        if (dataArr[i].num == num){
+            dataArr.splice(i, 1); //요런걸 파괴적 메소드라 부름!
+            break;
+        }
+    }
+
+    //로컬 스토리지에 다시 저장(Update - 덮어쓰깅)
+    localStorage.setItem(tblName, JSON.stringify(dataArr));
+    alert("글이 잘 삭제 되었어요용!!!!");
+    location.replace("list.html");
+</script>

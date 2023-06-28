@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 모바일이 나오면서 페이지 나누기의 효과가 희미해짐! 손가락 터치-->
+    <script>
+        for (let i = 1; i <=30; i++){
+            document.write("<h1>지완이는 오타왕!</h1>");
+        }
+
+        //크롬의 문제! 
+        setTimeout(function(){
+            window.scrollTo(0,0);
+        },50);
+
+    // 스크롤 이벤트
+    window.onscroll = function(){
+        let scrollTop = document.documentElement.scrollTop;    
+        let clientHeight = document.documentElement.clientHeight;    
+        let scrollHeight = document.documentElement.scrollHeight;    
+
+        //스크롤바를 끝까지 내렸다면(브라우져가 좋아져서 소숫점 때문에 미세한 오차 발생!)
+        //scrollTop + clientHeight == scrollHeight 가 되어야 함
+        //실제는 약간의 튜닝값을 넣어서 끝까지 내리기 이전에 필요한 처리를 함
+        
+
+        const tunningVal = 50;  // 50px 전에 발생시키려 함
+        if( (scrollTop + clientHeight) >= (scrollHeight - tunningVal)) {
+            //alert("스크롤바를 끝까지 내렸어용");
+            for(let i = 1; i <= 8; i++){
+                var h1 = document.createElement("h1");
+                h1.innerHTML = "지완이는 안 오타왕"; 
+                document.body.appendChild(h1);
+            }
+        }
+    }   
+    </script>
+</body>
+</html>

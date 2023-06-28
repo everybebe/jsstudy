@@ -17,7 +17,9 @@ request.getParameter = function(pName){
         let name = items[i].split("=")[0];
         let val = items[i].split("=")[1];
         if(name == pName){
-            return decodeURIComponent(val);
+            val = decodeURIComponent(val);
+            val = val.replaceAll("+", " "); //공백이 +로 넘어오기 때문에 재가공!
+            return val;
         }
     }
     //return "name이 없어용 확인하셍"; // 개발 중에는 우리 이렇게 써용!
@@ -34,7 +36,9 @@ request.getParameterValues = function(pName){
         let name = items[i].split("=")[0];
         let val = items[i].split("=")[1];
         if(name == pName){
-            rslt.push(decodeURIComponent(val)); // return으로 멈추면 안되고, 끝까지 찾아야 함!
+            val = decodeURIComponent(val);
+            val = val.replaceAll("+", " "); //공백이 +로 넘어오기 때문에 재가공!
+            rslt.push(val); // return으로 멈추면 안되고, 끝까지 찾아야 함!
         }
     }
     if(!rslt.length) return null;  // 암것도 못 찾았다면 null 리턴

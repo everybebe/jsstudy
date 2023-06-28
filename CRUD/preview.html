@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #disp {
+            width:200px;
+            height:200px;
+            background-color: orange;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>이미지 미리보기</h1>
+    <div id="disp" ondragover="fdover()" ondrop="fdrop()"></div><br>
+   
+    <script>
+      const myDisp = document.querySelector("#disp");
+      function fdover() {
+        event.preventDefault();
+      }
+
+      //여러 파일 가져오깅, 비동기가 반복문 속에 있는 건 아주 좋지 않음, 머리아픔
+      //비동기활동을 별도 함수로 뽑아내서 독립시키고, 이를 반복문 안에서 부르면 구분됨!
+
+      function OneFileRead(pFile){
+       
+        
+            var fileReader = new FileReader(); // 파일 읽기
+            fileReader.onload = function () {
+            // 다 읽으면 발생하는 이벤트
+                console.log("이미지 데이터 모습: ", fileReader.result);
+                var vDiv = document.createElement("div"); //div 맹글기
+                vDiv.style.width = "200px";
+                vDiv.style.height= "200px";
+
+                var vImg = document.createElement("img");
+                vImg.src = fileReader.result;
+                vImg.width = 200;
+                vImg.height = 170;
+
+                vDiv.appendChild(vImg);
+                //vDiv.innerHTML += `<span>${pFile.name}</span>`; //파일명 추가
+                myDisp.appendChild(vDiv);
+            };
+            fileReader.readAsDataURL(pFile);
+        
+      }
+
+
+      function fdrop() {
+        event.preventDefault();
+        var files = event.dataTransfer.files; // 자동완성 안되니, 잊으면 구글 검색
+        // 파일 읽기    ->  대부분 이 세팅으로 함
+        console.log(files); //파일 리스트
+        myDisp.innerHTML = "";
+        for(var i = 0; i < files.length; i++){
+            OneFileReader(files[i]);
+        }
+
+    }
+
+      //다른 곳도 막아야 함!
+      window.addEventListener("dragober",function(){
+        event.preventDefault();
+      });
+      window.addEventListener("drop",function(){
+        event.preventDefault();  
+      });
+
+    </script>
+  </body>
+</html>

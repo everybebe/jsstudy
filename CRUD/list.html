@@ -1,40 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div id="wrapper">
-        <h1>어글리 게시팡</h1>
-        <div id="list"></div>        
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Page Title</title>
+    <style>
+        #modal {
+            position: fixed;
+            left:0px;
+            top: 0px;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(148, 3, 148, 0.8);
+            display: none; /* 크기가 없는 상태로 안보임 */
+        }
+      #mCont {
+        width: 60%;
+        height: 70%;
+        margin: 20px auto; /* 수평 가운데 정렬*/
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="modal">
+      <div id="mCont">
+
+        <form method="get" action=""> 
+          <h1>상세 페이지</h1> <!-- 혼자써도 되는 값은  property라고 함-->
+          <!--disabled 처리하면 서버로 넘어가지가 않음. hidden이 필요!-->
+          <!--사용자에겐 보여줄 필요가 없을때 프로그램상 필요한 값 hidden 사용ㄴ-->
+          <input  type="hidden" name="n_num" value="">
+          제목 <input type="text" name="n_title" value="" required="required"></br>
+          지은이 <input type="text" name="n_writer" value="" required disabled></br>
+          내용</br> <textarea name="n_cont" cols="30" rows="10"></textarea></br>
+          관련언어(맥스 3개 까지만)<br>
+          JS<input type="checkbox" name="n_skill" value="js" checked onclick="f3ch(this)">
+          Java<input type="checkbox" name="n_skill" value="java" onclick="f3ch(this)">
+          Oracle<input type="checkbox" name="n_skill" value="oracle" onclick="f3ch(this)">
+          HTML<input type="checkbox" name="n_skill" value="html" onclick="f3ch(this)">
+          CSS<input type="checkbox" name="n_skill" value="css" onclick="f3ch(this)"></br>
+          <button type="submit" onclick="fsubmit('mod')">수정</button>&nbsp;&nbsp;
+          <button type="submit" onclick="fsubmit('del')">삭제</button>
+      </form>
+
+      </div>
     </div>
+
+    <div id="wrapper">
+      <h1>어글리 게시판</h1>
+      <div id="list"></div>
+    </div>
+    <script src="./jsp.js"></script>
     <script>
-    const tblName = "uglyGesi"; //로컬스토리지 테이블 키값
-    let dataArr = JSON.parse(localStorage.getItem(tblName)); //데이터 배열
-    const gList = document.querySelector("#list");
-    
-    function fList(){
-        let tblStr = `<table border=1>`;
-        tblStr += `<tr><th>넘버</th><th>제목</th><th>지으니</th><th>날짱</th>`;
-            for(let i =0; i<dataArr.length; i++){
-                tblStr += `<tr>`;
-                tblStr += `<td>${dataArr[i].num}</td>`;
-                tblStr += `<td><a href="read.html?num=${dataArr[i].num}">${dataArr[i].title}</td></a>`;
-                tblStr += `<td>${dataArr[i].writer}</td>`;
-                tblStr += `<td>${dataArr[i].date}</td>`;
-                tblStr += `</tr>`;
-    }
-    tblStr += `</table>`;
-    tblStr += `<br><a href="write.html">새글쓰깅</a>`;
-    gList.innerHTML = tblStr; //화면에 뿌리깅
+      // 페이징
+      /*
+        페이지당 몇개의 글을 출력
+        전체 글 수 
+        페이지 수
+        페이지별로 시작 인덱스(글), 끝 인덱스(글) 배열에 담아져 있기 때문
+      */
+      const tblName = "uglyGesi"; // 로컬스토리지 테이블 키값
+      let dataArr = JSON.parse(localStorage.getItem(tblName)); // 데이터 배열
+      /*
+         1p   0-9
+         2p   10-19
+         3p   20-29
+      */
+      
+      let page = request.getParameter("page");
+      if(!page){ // 만약 page정보가 안들어 왔다면
+        // js에서 null은 false
+        page = 1;
+      }
+
+      const cntPerPage = 10;
+      let totalGulCnt = dataArr.length;
+      let pageCnt = Math.ceil(totalGulCnt / cntPerPage); // 간단히 올림으로 해결!
+      let startGulInt = (page -1) * cntPerPage; 
+      let endGulInt = startGulInt + cntPerPage; // 반복문에 <을 사용하면 필요 없음
+      if(endGulInt > (totalGulCnt - 1)){
+        endGulInt = totalGulCnt - 1;
+      }
+
+
+
+
+      const myModal = document.querySelector('#modal');
+      const gList = document.querySelector("#list");
+
+      const myForm = document.forms[0]; // id를 안주고 이렇게 써도 됨!
+      function fsubmit(pAct) {
+        event.preventDefault(); // submit의 built-in 기능(전송) 막기
+        if(pAct=='mod'){
+          myForm.action = "modify_action.html";
+        }
+        if(pAct=='del'){
+          myForm.action = "del_action.html";
+        }
+        myForm.submit(); // 막았기 때문에 직접 보냄
+        
+      }
+
+      function fread(pNum){
+        document.querySelector("[name=n_num]").value=pNum;
+        alert("체킁:" + pNum);
+        
+        event.preventDefault(); //built-in 기능 막깅!
+        //빼먹는 사람들이 있어 변칙적으로 그냥 #을 붙이라고 함 (페이지내 이동)
+        myModal.style.display = "block"; //누네 보이겡!
+
+        for(let i=0; i<dataArr.length; i++){
+            if(dataArr[i].num == pNum){ //찾던 글
+                document.querySelector("[name=n_title]").value=dataArr[i].title;
+                document.querySelector("[name=n_writer]").value=dataArr[i].writer;
+                document.querySelector("[name=n_cont]").value=dataArr[i].cont;
+
+                //체크박스를 어떻게 할건지, dataArr[i].skills 있는 내용이 자동 체크되어야 함!
+                //css 선택자를 잘 쓰면 프로그램이 심플하고, 명확해짐!
+                let ckArr = dataArr[i].skills;
+                for(let j=0; j<ckArr.length; j++){
+                    document.querySelector(`[value=${ckArr[j]}]`).checked=true;
+                }
+                break; //요런 걸 안 빼먹는게 꽤나 중요!
+            }
+        }
     }
 
-        window.addEventListener("DOMContentLoaded",function(){
-            fList();
-        }); //태그 해석만 끝나면 발생
-       // window.addEventListener("load",fList);           //태그 해석 + 이미지 로딩완료에 발생
+
+      function fList() {
+        let tblStr = `<table border=1>`;
+        tblStr += `<tr><th>넘버</th><th>제목</th><th>지은이</th><th>날짜</th></tr>`;
+        for (let i = startGulInt; i < endGulInt; i++) {
+          console.log(dataArr[i].num)
+          tblStr += `<tr>`;
+          tblStr += `<td>${dataArr[i].num}</td>`;
+          tblStr += `<td><a href="//naver.com" onclick="fread(${dataArr[i].num})">${dataArr[i].title}</td>`;
+          tblStr += `<td>${dataArr[i].writer}</td>`;
+          tblStr += `<td>${dataArr[i].date}</td>`;
+          tblStr += `</tr>`;
+        }
+        tblStr += `</table>`;
+        tblStr += `</br>`;
+
+        // 페이지 번호 출력하는 부분 추가
+        let pageStr="";
+        for(let i=1; i<=pageCnt; i++){
+          pageStr += `<a href="list.html?page=${i}">${i}</a>&nbsp;&nbsp;&nbsp;`
+        }
+        tblStr += pageStr;
+        tblStr += `<br><a href="write.html">새글 쓰기</a>`;
+
+        gList.innerHTML = tblStr; // 화면에 뿌리기
+      } // 태그 해석만 끝나면 발생
+
+      window.addEventListener("DOMContentLoaded", function () {
+        fList();
+      });
+
+      //window.addEventListener("load", fList); 예전 방식 태그해석 + 이미지 로딩완료에 발생
     </script>
-</body>
+  </body>
 </html>

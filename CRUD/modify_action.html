@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="./jsp.js"></script>
+<script>
+    let num = request.getParameter("n_num");
+    let title = request.getParameter("n_title");
+    let cont = request.getParameter("n_cont");
+    let skills = request.getParameterValues("n_skill");
+    let date = (new Date()).toLocaleDateString();
+
+    const tblName = "uglyGesi";
+    let dataArr = JSON.parse(localStorage.getItem(tblName));
+
+    for (let i = 0; i < dataArr.length; i++){
+        if (dataArr[i].num == num){
+            dataArr[i].title = title;
+            dataArr[i].cont = cont;
+            dataArr[i].skills = skills;
+            dataArr[i].date = date;
+            break;
+        }
+    }
+
+    //로컬 스토리지에 다시 저장(Update - 덮어쓰깅)
+    localStorage.setItem(tblName, JSON.stringify(dataArr));
+    alert("글이 잘 수정 되었어요");
+    location.replace("list.html");
+</script>
